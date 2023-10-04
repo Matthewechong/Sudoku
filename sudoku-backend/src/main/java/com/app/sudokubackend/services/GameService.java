@@ -1,15 +1,22 @@
 package com.app.sudokubackend.services;
 
 import java.util.Map;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import com.app.sudokubackend.database.SudokuRepository;
 import com.app.sudokubackend.models.SudokuEntity;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class GameService {
+
+    private static final Logger logger = LoggerFactory.getLogger(GameService.class);
 
     @Autowired
     public SudokuRepository sudokuRepository;
@@ -21,7 +28,21 @@ public class GameService {
     public void saveGame(Map<String, Object> gameMap) {
         String gamestate = (String) gameMap.get("gamestate");
         String difficulty = (String) gameMap.get("difficulty");
+        logger.info(gamestate);
+        logger.info(difficulty);
         SudokuEntity gameEntity = new SudokuEntity(gamestate, difficulty);
         sudokuRepository.save(gameEntity);
     }
+
+    public SudokuEntity loadGame(Long id) {
+        Optional<SudokuEntity> currentEntity = sudokuRepository.findById(id);
+        if (currentEntity.isPresent()) {
+            logger.info(currentEntity.get().getGamestate());
+            logger.info(currentEntity.get().getDifficulty());
+            return currentEntity.get();
+        } else {
+            throw new EntityNotFoundException("Entity with ID " + id + " not found");
+        }
+    }
+
 }

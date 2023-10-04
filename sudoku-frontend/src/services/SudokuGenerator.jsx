@@ -1,50 +1,28 @@
 import axios from 'axios';
 const url = "https://sudoku-api.vercel.app/api/dosuku"
-    // Define your GraphQL query
-    const graphqlQuery = `
-    query {
-        newboard(limit=10) {
-        grids {
-            value
-        }
-        }
-    }
-    `;
-
-    // Set up the GraphQL request headers
-    const headers = {
-        'Content-Type': 'application/json',
-    };
 let grid = [[]];
 let solution = [[]];
 let rowString = '';
 let difficulty = '';
 
-export default function GenerateSudoku(){
-    
-    
-    // Send the GraphQL POST request
-    axios.post(url)
-    .then(response => {
-
+export async function GenerateSudoku(){
+    try{
+        const response = await axios.post(url)
         const data = response.data.newboard;
         grid = data.grids[0].value;
         solution = data.grids[0].solution;
         difficulty = data.grids[0].difficulty;
-
-
-    })
-        .catch(error => {
-        console.error('GraphQL Error:', error);
-    });
-    return [
-        printGrid(grid),
-        difficulty
-    ]
+        console.log(grid)
+        return [printGrid(grid), difficulty]
+    }
+    catch (err) {
+        console.error(err);
+      }
 }
 
 
 export function printGrid(grid){
+    console.log("Printing Board...")
     rowString = '';
     let countCol = 0;
     let countRow = 0
