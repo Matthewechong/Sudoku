@@ -1,13 +1,19 @@
 import axios from 'axios';
-
+import {printGrid} from './SudokuGenerator';
+import { SudokuStringToGrid } from '../utils/Util';
 let saveUrl = "http://localhost:8080/api/save";
 let loadUrl = "http://localhost:8080/api/load";
 
-export function SaveGame(board,difficulty){
+export function SaveGame(board,difficulty,username, id){
     const jsonTemplate =
-    {"gamestate" : board,
-    "difficulty" : difficulty
+    {
+    "id" : id,
+    "gamestate" : printGrid(board).replace(/\s+/g, ""),
+    "difficulty" : difficulty,
+    "username" : username,
     };
+    console.log("Json Sent: ")
+    console.log(jsonTemplate)
     
     axios.post(saveUrl,jsonTemplate)
         .then((response) =>{

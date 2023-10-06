@@ -24,6 +24,7 @@ public class SudokuController {
     @PostMapping("/api/save")
     ResponseEntity<String> saveGame(@RequestBody Map<String, Object> gameState) {
         try {
+            System.out.println(gameState.toString());
             gameService.saveGame(gameState);
             return ResponseEntity.ok("Game State Saved");
         } catch (Exception e) {

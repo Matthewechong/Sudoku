@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DisplayGrid from "./components/DisplayGrid";
 import SudokuProvider  from "./contexts/CurrentGridContext";
-import { Button } from "@mui/material";
+import Form from "./components/Form"
 
 function App(){
   return( 
@@ -10,6 +10,7 @@ function App(){
 
           <h1>Sudoku</h1>
           <DisplayGrid/>
+          <Form/>
         </SudokuProvider>
       </>
     )

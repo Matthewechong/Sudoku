@@ -8,11 +8,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "sudoku_game_state")
+@Table(name = "sudoku_games")
 public class SudokuEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(columnDefinition = "TEXT")
@@ -21,13 +20,18 @@ public class SudokuEntity {
     @Column(columnDefinition = "TEXT")
     private String difficulty;
 
+    @Column(columnDefinition = "TEXT")
+    private String username;
+
     public SudokuEntity() {
 
     }
 
-    public SudokuEntity(String gamestate, String difficulty) {
+    public SudokuEntity(long id, String gamestate, String difficulty, String username) {
+        this.id = id;
         this.gamestate = gamestate;
         this.difficulty = difficulty;
+        this.username = username;
     }
 
     public Long getId() {
@@ -52,6 +56,14 @@ public class SudokuEntity {
 
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 }

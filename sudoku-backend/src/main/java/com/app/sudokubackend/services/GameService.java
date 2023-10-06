@@ -26,11 +26,12 @@ public class GameService {
     }
 
     public void saveGame(Map<String, Object> gameMap) {
+        System.out.println("Hello World");
+        long id = Integer.valueOf((String) gameMap.get("id"));
         String gamestate = (String) gameMap.get("gamestate");
         String difficulty = (String) gameMap.get("difficulty");
-        logger.info(gamestate);
-        logger.info(difficulty);
-        SudokuEntity gameEntity = new SudokuEntity(gamestate, difficulty);
+        String username = (String) gameMap.get("username");
+        SudokuEntity gameEntity = new SudokuEntity(id, gamestate, difficulty, username);
         sudokuRepository.save(gameEntity);
     }
 

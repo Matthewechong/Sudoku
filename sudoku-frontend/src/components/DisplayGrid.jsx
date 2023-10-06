@@ -1,34 +1,29 @@
 import React, {useState} from 'react';
-import { useBoardContext, useButtonContext, useDifficultyContext } from '../contexts/CurrentGridContext'
-import { SaveGame, LoadGame } from '../services/SudokuService';
+import { useBoardContext, useButtonContext, useDifficultyContext, useGridContext } from '../contexts/CurrentGridContext'
 import { GenerateSudoku } from '../services/SudokuGenerator';
-import { Grid, Paper, Button } from '@mui/material';
+import { Grid, Paper, Button, TextField } from '@mui/material';
 import { SudokuStringToGrid } from '../utils/Util';
-
 
 
 function DisplayGrid(){
     const buttonName = useButtonContext();
     const {difficulty, setDifficulty} = useDifficultyContext()
-    const { board, changeBoard } = useBoardContext();
-    const initialGrid = Array.from({length : 9}, () => Array(9).fill(0));
-    const [grid, setGrid] = useState(initialGrid);
+    const {grid, setGrid, changeGrid} = useGridContext();
+    const [selectedCell, setSelectedCell] = useState({ row: null, col: null });
 
     const handleCellClick = (row, col) => {
-        // Handle cell click logic here
+        setSelectedCell({ row, col });
       };
 
-    function changeGrid(){
-      GenerateSudoku()
-        .then((response) =>{
-          setGrid(response[0]);
-          setDifficulty(response[1])
-        })
-        .catch(err => {
-          // Handle errors
-          console.error(err);
-      });
-    }
+    // const handleInputChange = (event) => {
+    //   const newValue = event.target.value;
+    //   if (selectedCell.row !== null && selectedCell.col !== null) {
+    //     // Update the grid with the new value
+    //     const newGrid = [...grid];
+    //     newGrid[selectedCell.row][selectedCell.col] = newValue;
+    //     setGrid(newGrid);
+    // }
+    // }
 
     function loadBoard(board){
       board.then((response) =>{
@@ -60,16 +55,7 @@ function DisplayGrid(){
             </Grid>
           ))}
         </Grid>
-      </div>
-
-      <div>
-      <Button onClick={changeGrid} variant="contained">Generate Sudoku</Button>
-      <Button onClick={() => SaveGame(grid, difficulty)} variant="contained">Save</Button>
-      <Button onClick={() => loadBoard(LoadGame(1))} variant="contained">Load</Button>
-      
-      </div>
-
-      
+      </div>     
       </>
       );
     };
