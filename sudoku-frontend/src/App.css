@@ -1,4 +1,4 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -39,24 +39,16 @@
 
 .read-the-docs {
   color: #888;
-}
+} */
 
 /* styles.css */
 
-.sudoku-grid {
-  display: grid;
-  grid-template-columns: repeat(9, 1fr);
-  grid-gap: 2px;
-  width: 300px;
-  margin: 0 auto;
-}
-
-.sudoku-row {
+/* .sudoku-row {
   display: flex;
   flex-direction: row;
-}
+} */
 
-.sudoku-cell {
+/* .sudoku-cell {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,13 +58,13 @@
   background-color: #f0f0f0;
   border: 1px solid #ccc;
   cursor: pointer;
-}
+} */
 
-.sudoku-cell:hover {
+/* .sudoku-cell:hover {
   background-color: #e0e0e0;
-}
+} */
 
-.sudoku-cell.selected {
+/* .sudoku-cell.selected {
   background-color: #ffcc00;
   font-weight: bold;
-}
+} */

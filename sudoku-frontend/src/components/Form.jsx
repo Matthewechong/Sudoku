@@ -41,7 +41,7 @@ export default function BasicStack() {
     }
 
     return (
-        <Box sx={{ width: '25%' }}>
+        <Box className="form" >
         <Stack spacing={2}>
             <Item>
                 <TextField

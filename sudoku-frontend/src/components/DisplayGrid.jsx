@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useBoardContext, useButtonContext, useDifficultyContext, useGridContext } from '../contexts/CurrentGridContext'
 import { GenerateSudoku } from '../services/SudokuGenerator';
-import { Grid, Paper, Button, TextField } from '@mui/material';
+import { Grid, Paper, Button, TextField, Container } from '@mui/material';
 import { SudokuStringToGrid } from '../utils/Util';
 
 
@@ -15,15 +15,15 @@ function DisplayGrid(){
         setSelectedCell({ row, col });
       };
 
-    // const handleInputChange = (event) => {
-    //   const newValue = event.target.value;
-    //   if (selectedCell.row !== null && selectedCell.col !== null) {
-    //     // Update the grid with the new value
-    //     const newGrid = [...grid];
-    //     newGrid[selectedCell.row][selectedCell.col] = newValue;
-    //     setGrid(newGrid);
-    // }
-    // }
+    const handleInputChange = (event) => {
+      const newValue = event.target.value;
+      if (selectedCell.row !== null && selectedCell.col !== null) {
+        // Update the grid with the new value
+        const newGrid = [...grid];
+        newGrid[selectedCell.row][selectedCell.col] = newValue;
+        setGrid(newGrid);
+    }
+    }
 
     function loadBoard(board){
       board.then((response) =>{
@@ -35,9 +35,6 @@ function DisplayGrid(){
     }
 
     return (
-      <>
-      <div className='center-container'>
-      <h1>{difficulty}</h1>
         <Grid container spacing={0} className="sudoku-grid">
           {grid.map((row, rowIndex) => (
             <Grid container item key={rowIndex}>
@@ -48,15 +45,24 @@ function DisplayGrid(){
                     className="sudoku-cell"
                     onClick={() => handleCellClick(rowIndex, colIndex)}
                   >
-                    {cell}
+                    {selectedCell.row === rowIndex && selectedCell.col === colIndex ? 
+                    (<TextField 
+                      className='input-cell'
+                      type="number"
+                      value={cell}
+                      onChange={handleInputChange}
+                      autoFocus
+                    />
+                    ) : 
+                    (
+                      cell
+                    )}
                   </Paper>
                 </Grid>
               ))}
             </Grid>
           ))}
-        </Grid>
-      </div>     
-      </>
+        </Grid> 
       );
     };
 
