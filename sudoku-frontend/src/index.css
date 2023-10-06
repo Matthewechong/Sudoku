@@ -67,3 +67,46 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.sudoku-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(9, 1fr);
+  grid-gap: 1px; /* Adjust the gap between cells as needed */
+  width: 300px; 
+  height: 300px;
+}
+
+.sudoku-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.sudoku-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  background-color: #f0f0f0;
+  border: 1px solid #000000;
+  cursor: pointer;
+}
+
+.sudoku-cell:hover {
+  background-color: #e0e0e0;
+}
+
+.sudoku-cell.selected {
+  background-color: #ffcc00;
+  font-weight: bold;
+}
+
+.center-container {
+  margin: auto;
+  width: 20%;
+  padding: 10px;
+  
+}

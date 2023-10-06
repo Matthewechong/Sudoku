@@ -40,3 +40,39 @@
 .read-the-docs {
   color: #888;
 }
+
+/* styles.css */
+
+.sudoku-grid {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-gap: 2px;
+  width: 300px;
+  margin: 0 auto;
+}
+
+.sudoku-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.sudoku-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.sudoku-cell:hover {
+  background-color: #e0e0e0;
+}
+
+.sudoku-cell.selected {
+  background-color: #ffcc00;
+  font-weight: bold;
+}

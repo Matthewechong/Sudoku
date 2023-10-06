@@ -25,11 +25,7 @@ export default function SudokuProvider({children}){
     const [board, setBoard] = useState("Welcome");
 
     function changeBoard(board){
-        console.log("Board is: ")
-        console.log(board)
         board.then(result =>{
-            console.log(result[0]);
-            console.log(result[1]);
             setBoard(result[0]);
             setDifficulty(result[1]);
         });
@@ -37,7 +33,7 @@ export default function SudokuProvider({children}){
 
     return(
         <BoardContext.Provider value={{ board, changeBoard, setBoard }}>
-            <DifficultyContext.Provider value={difficulty}>
+            <DifficultyContext.Provider value={{difficulty,setDifficulty}}>
                 <ButtonContext.Provider value={buttonName}>
                     {children}
                 </ButtonContext.Provider>
