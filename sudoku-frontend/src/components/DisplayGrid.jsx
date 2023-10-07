@@ -35,35 +35,28 @@ function DisplayGrid(){
     }
 
     return (
-        <Grid container spacing={0} className="sudoku-grid">
-          {grid.map((row, rowIndex) => (
-            <Grid container item key={rowIndex}>
-              {row.map((cell, colIndex) => (
-                <Grid item key={colIndex}>
-                  <Paper
-                    elevation={10}
-                    className="sudoku-cell"
-                    onClick={() => handleCellClick(rowIndex, colIndex)}
-                  >
-                    {selectedCell.row === rowIndex && selectedCell.col === colIndex ? 
-                    (<TextField 
-                      className='input-cell'
-                      type="number"
-                      value={cell}
-                      onChange={handleInputChange}
-                      autoFocus
-                    />
-                    ) : 
-                    (
-                      cell
-                    )}
-                  </Paper>
-                </Grid>
-              ))}
-            </Grid>
-          ))}
-        </Grid> 
-      );
-    };
+      <Grid container spacing={0} className="sudoku-grid">
+        {grid.map((row, rowIndex) => (
+          <Grid container item key={rowIndex}>
+            {row.map((cell, colIndex) => (
+              <Grid item key={colIndex} style={{ textAlign: "center" }}>
+                <Paper
+                  elevation={0}
+                  className={`sudoku-cell 
+                  ${rowIndex % 3 === 2 && "sudoku-cell-bottom-border"
+                  } 
+                  ${colIndex % 3 === 2 && "sudoku-cell-right-border"}`
+                }
+                  onClick={() => handleCellClick(rowIndex, colIndex)}
+                >
+                  {cell !== "0" ? cell : ""}
+                </Paper>
+              </Grid>
+            ))}
+          </Grid>
+        ))}
+      </Grid>
+    );
+                }
 
   export default DisplayGrid

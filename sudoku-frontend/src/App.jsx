@@ -2,20 +2,27 @@ import React, { useState } from "react";
 import DisplayGrid from "./components/DisplayGrid";
 import SudokuProvider  from "./contexts/CurrentGridContext";
 import Form from "./components/Form"
-import { Container } from "@mui/material";
+import { Container, CssBaseline, Typography } from "@mui/material";
 
 function App(){
   return( 
       <>
-        <SudokuProvider>
-            <Container fixed className="center-container">
-              <h1>Sudoku</h1>
-              <DisplayGrid/>
-              <Form/>
-            </Container>
-            
-          
-        </SudokuProvider>
+  <SudokuProvider>
+    <CssBaseline/>
+    <Typography variant="h1" align="center" color="textPrimary" gutterBottom>Sudoku</Typography>
+    <main>
+      <div>
+      <Container maxWidth="sm" align="center">
+        <DisplayGrid />
+        <div style={{ marginTop: "60px" }}>
+          <Form/>
+        </div>
+        
+      </Container>
+      
+      </div>
+    </main>
+  </SudokuProvider>
       </>
     )
 }
