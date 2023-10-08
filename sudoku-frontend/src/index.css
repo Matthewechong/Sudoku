@@ -56,9 +56,6 @@ button:focus-visible {
 }
 
 .sudoku-grid {
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
   grid-template-columns: repeat(9, fr);
   grid-gap: 2px; 
   width: 500px; 
@@ -98,11 +95,6 @@ button:focus-visible {
 
 .input-cell{
   width: 50px;
-}
-
-.form{
-  margin-top: 20px;
-  width : 50%;
 }
 
 Button{

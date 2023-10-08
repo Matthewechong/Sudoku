@@ -15,14 +15,14 @@ function DisplayGrid(){
         setSelectedCell({ row, col });
       };
 
-    const handleInputChange = (event) => {
+    const handleInputChange = (event, row, col) => {
       const newValue = event.target.value;
-      if (selectedCell.row !== null && selectedCell.col !== null) {
+      if (row !== null && col !== null) {
         // Update the grid with the new value
         const newGrid = [...grid];
-        newGrid[selectedCell.row][selectedCell.col] = newValue;
+        newGrid[row][col] = newValue;
         setGrid(newGrid);
-    }
+      }
     }
 
     function loadBoard(board){
@@ -49,7 +49,12 @@ function DisplayGrid(){
                 }
                   onClick={() => handleCellClick(rowIndex, colIndex)}
                 >
-                  {cell !== "0" ? cell : ""}
+                  <TextField 
+                  value={cell}
+                  size='large'
+                  variant="outlined"
+                  onChange={(e) => handleInputChange( e, rowIndex, colIndex)}/>
+                  
                 </Paper>
               </Grid>
             ))}
