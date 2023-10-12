@@ -16,23 +16,17 @@ function DisplayGrid(){
       };
 
     const handleInputChange = (event, row, col) => {
-      const newValue = event.target.value;
-      if (row !== null && col !== null) {
-        // Update the grid with the new value
-        const newGrid = [...grid];
-        newGrid[row][col] = newValue;
-        setGrid(newGrid);
-      }
+        const newValue = parseInt(event.target.value, 10);
+        if(newValue >= 0 && newValue <= 9){
+          const newGrid = [...grid];
+          newGrid[row][col] = newValue;
+          console.log(newGrid)
+          setGrid(newGrid);
+        }
+        
     }
 
-    function loadBoard(board){
-      board.then((response) =>{
-        console.log("Retrieved Board")
-        setGrid(SudokuStringToGrid(response[0]));
-        setDifficulty(response[1])
-      }
-      )
-    }
+   
 
     return (
       <Grid container spacing={0} className="sudoku-grid">
@@ -49,11 +43,11 @@ function DisplayGrid(){
                 }
                   onClick={() => handleCellClick(rowIndex, colIndex)}
                 >
-                  <TextField 
+                  <input
                   value={cell}
-                  size='large'
-                  variant="outlined"
-                  onChange={(e) => handleInputChange( e, rowIndex, colIndex)}/>
+                  className={`input-cell ${cell ? 'sudoku-cell-valid-num' : 'sudoku-cell-invalid-num'}`}
+                  onChange={(e) => handleInputChange( e, rowIndex, colIndex)}
+                   />
                   
                 </Paper>
               </Grid>

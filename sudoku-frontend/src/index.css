@@ -75,7 +75,6 @@ button:focus-visible {
   width: 60px;
   height: 60px;
   font-size: 18px;
-  background-color: #f0f0f0;
   border: 1px solid #000000;
   cursor: pointer;
 }
@@ -89,12 +88,21 @@ button:focus-visible {
   font-weight: bold;
 }
 
-.center-container {
- 
+.sudoku-cell-valid-num{
+  background-color:rgb(243, 186, 111)
+}
+
+.sudoku-cell-invalid-num{
+  background-color:rgb(255, 255, 255)
 }
 
 .input-cell{
-  width: 50px;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 20px;
+  border : 1px;
+  
 }
 
 Button{

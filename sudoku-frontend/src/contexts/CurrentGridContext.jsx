@@ -38,7 +38,6 @@ export default function SudokuProvider({children}){
             setDifficulty(response[1])
           })
           .catch(err => {
-            // Handle errors
             console.error(err);
         });
       }
