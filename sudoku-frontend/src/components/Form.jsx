@@ -5,7 +5,8 @@ import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import { useBoardContext, useButtonContext, useDifficultyContext, useGridContext } from '../contexts/CurrentGridContext'
 import { SaveGame, LoadGame } from '../services/SudokuService';
-import { SudokuStringToGrid } from '../utils/Util';
+import { SudokuStringToGrid, solveSudoku, printBoard } from '../utils/Util';
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -40,6 +41,19 @@ export default function BasicStack() {
         SaveGame(grid, difficulty, "Matthew", idValue);
     }
 
+    function solveBoard(){
+        let N = grid.length;
+        console.log("Solving Board...")
+        if (solveSudoku(grid, N))
+        {
+            setGrid(printBoard(grid, N));
+        }
+        else
+        {
+            console.log("No solution");
+        }
+    }
+
     return (
         <Box className="form" style={{ width : "300px", padding:"50px" }} >
         <Stack spacing={2}>
@@ -59,6 +73,9 @@ export default function BasicStack() {
             </Item>
             <Item>
                 <Button onClick={changeGrid} variant="contained">Generate Sudoku</Button>
+            </Item>
+            <Item>
+                <Button onClick={() => solveBoard()} variant="contained">Solve</Button>
             </Item>
         </Stack>
         </Box>
