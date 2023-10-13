@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import { Grid, Paper, Button, TextField } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
-import { useBoardContext, useButtonContext, useDifficultyContext, useGridContext } from '../contexts/CurrentGridContext'
+import {  useGridSolutionContext, useDifficultyContext, useGridContext } from '../contexts/CurrentGridContext'
 import { SaveGame, LoadGame } from '../services/SudokuService';
 import { SudokuStringToGrid, solveSudoku, printBoard } from '../utils/Util';
 
@@ -17,7 +17,8 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function BasicStack() {
     const {grid, setGrid, changeGrid} = useGridContext();
-    const {difficulty, setDifficulty} = useDifficultyContext()
+    const {difficulty, setDifficulty} = useDifficultyContext();
+    const { gridSol } = useGridSolutionContext();
     const idRef = useRef("");
 
     function loadBoard(){
@@ -42,16 +43,7 @@ export default function BasicStack() {
     }
 
     function solveBoard(){
-        let N = grid.length;
-        console.log("Solving Board...")
-        if (solveSudoku(grid, N))
-        {
-            setGrid(printBoard(grid, N));
-        }
-        else
-        {
-            console.log("No solution");
-        }
+        setGrid(gridSol);
     }
 
     return (

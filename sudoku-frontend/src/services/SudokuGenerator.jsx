@@ -12,6 +12,9 @@ export async function GenerateSudoku(){
         grid = data.grids[0].value;
         solution = data.grids[0].solution;
         difficulty = data.grids[0].difficulty;
+        console.log("Generated Board")
+        console.log(grid)
+        console.log(solution)
         return [grid, difficulty]
     }
     catch (err) {

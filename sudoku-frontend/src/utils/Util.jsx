@@ -62,8 +62,9 @@ function isSafe(board, row, col, num)
     return true;
 }
  
-export function solveSudoku(board, n)
-{
+export function solveSudoku(board)
+{   
+    let n = 9;
     let row = -1;
     let col = -1;
     let isEmpty = true;
@@ -134,6 +135,7 @@ export function printBoard(board, N)
             // document.write("");
         }
     }
+    console.log("Print Board")
     console.log(solution)
     return SudokuStringToGrid(solution)
 }

@@ -1,15 +1,13 @@
 import React, {useState} from 'react';
-import { useBoardContext, useButtonContext, useDifficultyContext, useGridContext } from '../contexts/CurrentGridContext'
-import { GenerateSudoku } from '../services/SudokuGenerator';
+import { useBoardContext, useButtonContext, useDifficultyContext, useGridContext, useGridSolutionContext } from '../contexts/CurrentGridContext'
 import { Grid, Paper, Button, TextField, Container } from '@mui/material';
-import { SudokuStringToGrid } from '../utils/Util';
-
 
 function DisplayGrid(){
     const buttonName = useButtonContext();
     const {difficulty, setDifficulty} = useDifficultyContext()
     const {grid, setGrid, changeGrid} = useGridContext();
     const [selectedCell, setSelectedCell] = useState({ row: null, col: null });
+    const {gridSol, setGridSol} = useGridSolutionContext();
 
     const handleCellClick = (row, col) => {
         setSelectedCell({ row, col });
@@ -17,13 +15,32 @@ function DisplayGrid(){
 
     const handleInputChange = (event, row, col) => {
         const newValue = parseInt(event.target.value, 10);
-        if(newValue >= 0 && newValue <= 9){
-          const newGrid = [...grid];
-          newGrid[row][col] = newValue;
-          console.log(newGrid)
-          setGrid(newGrid);
+        console.log("Current Grid is: ")
+        console.log(grid)
+        if((newValue >= 0 && newValue <= 9) ){
+            const newGrid = [...grid];
+            console.log(isInputValid(newValue,row,col))
+            if(isInputValid(newValue,row,col)){
+            newGrid[row][col] = newValue;
+            console.log("New Grid")
+            console.log(newGrid)
+            setGrid(newGrid);
+            }
+          
         }
         
+    }
+
+    function isInputValid(newValue,row, col){
+      let isValid = parseInt(gridSol[row][col],10) === newValue
+      if(isValid){
+        console.log("Correct")
+      }
+      else{
+        console.log("Incorrect")
+      }
+      return isValid
+      
     }
 
    
