@@ -13,7 +13,25 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
   textAlign: 'center',
   color: theme.palette.text.secondary,
+  width: "200px",
+  boxShadow: theme.shadows[0]
 }));
+
+const styles = {
+    toolbar_box: {
+        width: "500px", 
+        padding: "50px", 
+        display: "flex", 
+        flexDirection: "row", 
+        justifyContent: "center"
+    },
+    toolbar:{
+        display: "flex", 
+        flexDirection: "row", 
+        justifyContent: "center"
+    }
+    
+}
 
 export default function BasicStack() {
     const {grid, setGrid, changeGrid} = useGridContext();
@@ -47,16 +65,16 @@ export default function BasicStack() {
     }
 
     return (
-        <Box className="form" style={{ width : "300px", padding:"50px" }} >
-        <Stack spacing={2}>
-            <Item>
+        <Box className="form" style={styles.toolbar_box}  >
+        <Stack spacing={0} style={styles.toolbar}>
+            {/* <Item>
                 <TextField
             required
             id="outlined-required"
             label="ID Required"
             inputRef={idRef}
             />
-            </Item>
+            </Item> */}
             <Item>
                 <Button onClick={() => saveBoard()} variant="contained">Save</Button>
             </Item>

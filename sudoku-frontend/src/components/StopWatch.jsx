@@ -8,7 +8,32 @@ const Item = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
+
   }));
+
+const styles = {
+    paper: {
+      width: "100px",
+      flexDirection: "row", 
+      justifyContent: "center"
+    },
+
+    clock_block:{
+      padding: "20px",
+      width: "600px",
+      flexDirection: "row", 
+      justifyContent: "right"
+    },
+    clock:{
+        width:"100px",
+        height:"100px",
+        display: "flex",
+        justifyContent: "center",
+        textAlign: "center",
+        // background-color: cyan;
+        // border-radius: 5px;
+    },
+  };
 
 function Stopwatch() {
   const [isRunning, setIsRunning] = useState(false);
@@ -32,7 +57,7 @@ function Stopwatch() {
 
   const startStop = () => {
     setIsRunning(!isRunning);
-  };
+  }; 
 
   const reset = () => {
     setTime(0);
@@ -41,30 +66,26 @@ function Stopwatch() {
 
   return (
     <>
-    <Grid container spacing={2}>
-      <Grid item xs={12} style={{ width:"50px"}}>
-        <Paper style={{width: "150px",height: "150px",borderRadius: "50%", border : "4px", backgroundColor: "transparent" }} elevation={3}>
-            <Typography style={{ padding:"60px"}}>
-                {String(minutes).padStart(2, "0")}:
-                {String(seconds).padStart(2, "0")}  
-            </Typography>
-        </Paper>
-      </Grid>
-      <Grid item xs={12}>
-        <Paper style={{width: "200px"}}elevation={3}>
-            <Item>
-                <Button variant="contained" onClick={startStop}>{isRunning ? "Stop" : "Start"}</Button>
-            </Item>
-            <Item>
-                <Button variant="contained" onClick={reset}>Reset</Button>
-            </Item>
-        </Paper>
+        <Grid container style={styles.clock_block} >
+            <Grid item xs={2} >
+                <Typography style={styles.paper}>
+                    {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
+                </Typography>
+            </Grid>
+
+            <Grid item xs={2}>
+                <Button sx={{ width: "75px" }} variant="contained" onClick={startStop}>
+                    {isRunning ? "Stop" : "Start"}
+                </Button>
+            </Grid>
+            <Grid item xs={2}>
+                <Button sx={{ width: "75px" }} variant="contained" onClick={reset}>
+                    Reset
+                </Button>
+            </Grid>
         </Grid>
-      </Grid>
     </>
-      
-    
-  );
+);
 }
 
 export default Stopwatch;

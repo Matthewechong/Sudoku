@@ -1,6 +1,6 @@
 
 export function SudokuStringToGrid(sudokuString) {
-    console.log("Sudoku String is")
+    console.log("Sudoku String is: " + sudokuArray)
     const result = sudokuString.replace(/\s+/g, "");
     const sudokuArray = [];
     for (let i = 0; i < 9; i++) {
@@ -62,6 +62,11 @@ function isSafe(board, row, col, num)
     return true;
 }
  
+/*
+ * Solve the sudoku board using the backtracking algorithm also known as the N Queen problem.
+ * https://www.youtube.com/watch?v=0DeznFqrgAI
+ */
+
 export function solveSudoku(board)
 {   
     let n = 9;
@@ -135,8 +140,7 @@ export function printBoard(board, N)
             // document.write("");
         }
     }
-    console.log("Print Board")
-    console.log(solution)
+    console.log("Print Board: " + solution)
     return SudokuStringToGrid(solution)
 }
  

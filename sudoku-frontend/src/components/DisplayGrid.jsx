@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
 import { useBoardContext, useButtonContext, useDifficultyContext, useGridContext, useGridSolutionContext } from '../contexts/CurrentGridContext'
 import { Grid, Paper, Button, TextField, Container } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
 
 function DisplayGrid(){
     const buttonName = useButtonContext();
@@ -8,6 +12,7 @@ function DisplayGrid(){
     const {grid, setGrid, changeGrid} = useGridContext();
     const [selectedCell, setSelectedCell] = useState({ row: null, col: null });
     const {gridSol, setGridSol} = useGridSolutionContext();
+    const [open, setOpen] = React.useState(false);
 
     const handleCellClick = (row, col) => {
         setSelectedCell({ row, col });
@@ -26,10 +31,21 @@ function DisplayGrid(){
             console.log(newGrid)
             setGrid(newGrid);
             }
+            else{
+              handleClickOpen()
+            }
           
         }
         
     }
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
 
     function isInputValid(newValue,row, col){
       let isValid = parseInt(gridSol[row][col],10) === newValue
@@ -37,7 +53,9 @@ function DisplayGrid(){
         console.log("Correct")
       }
       else{
+        
         console.log("Incorrect")
+        return
       }
       return isValid
       
@@ -46,6 +64,7 @@ function DisplayGrid(){
    
 
     return (
+      <>
       <Grid container spacing={0} className="sudoku-grid">
         {grid.map((row, rowIndex) => (
           <Grid container item key={rowIndex}>
@@ -72,7 +91,25 @@ function DisplayGrid(){
           </Grid>
         ))}
       </Grid>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description" align='center'>
+            Incorrect
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} autoFocus>
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
     );
-                }
+    }
 
   export default DisplayGrid

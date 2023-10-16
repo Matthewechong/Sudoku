@@ -2,35 +2,68 @@ import React, { useState } from "react";
 import DisplayGrid from "./components/DisplayGrid";
 import SudokuProvider  from "./contexts/CurrentGridContext";
 import Form from "./components/Form"
-import { Container, CssBaseline, Typography, Grid, Paper, Button } from "@mui/material";
+import { Container, createTheme, Grid, Paper, Button, ThemeProvider, colors, CssBaseline } from "@mui/material";
 import ResponsiveAppBar from "./components/MenuBar";
 import Stopwatch from "./components/StopWatch";
-function App(){
-  return( 
-      <>
-  <SudokuProvider>
-    <CssBaseline></CssBaseline>
-    <ResponsiveAppBar></ResponsiveAppBar>
-    <main>
-    <Grid container spacing={2}>
-      <Grid item xs={6} style={{ padding: "40px", marginTop: "40px" }}>
-        <Paper elevation={0} style={{ height : "650px"}} >
-          <Container maxWidth="sm" align="center" style={{  }} >
-            <DisplayGrid />
-          </Container>
-        </Paper>
-      </Grid>
-      <Grid item xs={6} style={{ padding: "0px", marginTop: "80px" }}>
-          <Container maxWidth="sm" align="center" >
-            <Stopwatch></Stopwatch>
-            <Form />
-          </Container>
-      </Grid>
-    </Grid>
-    </main>
-  </SudokuProvider>
-      </>
-    )
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#47CBD4",
+    },
+    secondary: {
+      main: "#d45047",
+    },
+  },
+});
+
+// Style object for grid items and paper
+const styles = {
+  gridItem: { 
+    marginTop: "0px" 
+  },
+  paper: {
+    height: "550px"
+  },
+  clock:{
+    height: "50px",
+    align:"right",
+    padding:"10px"
+  }
+};
+
+function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <SudokuProvider>
+        <ResponsiveAppBar />
+        <main>
+          <Grid spacing={0}>
+            <Grid>
+              <Container maxWidth="sm" align="center">
+                <Stopwatch></Stopwatch>
+              </Container>
+            </Grid>
+            <Grid>
+              <Paper elevation={0} style={styles.paper}>
+                <Container maxWidth="sm" align="center">
+                  <DisplayGrid/>
+                </Container>
+              </Paper>
+            </Grid>
+            <Grid >
+              <Paper>
+              <Container maxWidth="sm" align="center">
+                <Form />
+              </Container>
+              </Paper>
+            </Grid>
+          </Grid>
+        </main>
+      </SudokuProvider>
+    </ThemeProvider>
+  );
 }
 
 export default App;
