@@ -15,7 +15,7 @@ import com.app.sudokubackend.models.SudokuEntity;
 import com.app.sudokubackend.services.GameService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173,http://ec2-18-222-136-174.us-east-2.compute.amazonaws.com")
 public class SudokuController {
 
     @Autowired
