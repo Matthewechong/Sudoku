@@ -1,6 +1,6 @@
 
 export function SudokuStringToGrid(sudokuString) {
-    console.log("Sudoku String is: " + sudokuArray)
+    console.log("Sudoku String is: " + sudokuString)
     const result = sudokuString.replace(/\s+/g, "");
     const sudokuArray = [];
     for (let i = 0; i < 9; i++) {
