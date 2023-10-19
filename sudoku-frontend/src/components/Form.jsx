@@ -67,14 +67,14 @@ export default function BasicStack() {
     return (
         <Box className="form" style={styles.toolbar_box}  >
         <Stack spacing={0} style={styles.toolbar}>
-            {/* <Item>
+            <Item>
                 <TextField
             required
             id="outlined-required"
             label="ID Required"
             inputRef={idRef}
             />
-            </Item> */}
+            </Item>
             <Item>
                 <Button onClick={() => saveBoard()} variant="contained">Save</Button>
             </Item>
