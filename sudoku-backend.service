@@ -1,0 +1,14 @@
+[Unit]
+Description=Sudoku Backend Service for Rest Api
+After=syslog.target
+
+[Service]
+User=root
+ExecStart=/usr/bin/java -jar /home/ubuntu/git/Sudoku/sudoku-backend/target/sudoku-backend-0.0.1-SNAPSHOT.jar
+SuccessExitStatus=143
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
+
