@@ -3,6 +3,7 @@ package com.app.sudokubackend.controller;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,12 +16,15 @@ import com.app.sudokubackend.models.SudokuEntity;
 import com.app.sudokubackend.services.GameService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173,http://ec2-18-222-136-174.us-east-2.compute.amazonaws.com")
 public class SudokuController {
+
+    @Value("${allowed.origins}")
+    private String allowedOrigins;
 
     @Autowired
     GameService gameService;
 
+    @CrossOrigin(origins = "${allowed.origins}")
     @PostMapping("/api/save")
     ResponseEntity<String> saveGame(@RequestBody Map<String, Object> gameState) {
         try {
@@ -32,6 +36,7 @@ public class SudokuController {
         }
     }
 
+    @CrossOrigin(origins = "${allowed.origins}")
     @GetMapping("/api/load/{id}")
     ResponseEntity<Object> loadGame(@PathVariable Long id) {
         try {

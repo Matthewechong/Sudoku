@@ -18,7 +18,7 @@ prompt = no
 CN = $CERT_COMMON_NAME
 
 [v3_req]
-keyUsage = keyEncipherment, dataEncipherment
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 extendedKeyUsage = serverAuth
 subjectAltName = @alt_names
 
