@@ -5,7 +5,8 @@ import Form from "./components/Form"
 import { Container, createTheme, Grid, Paper, Button, ThemeProvider, colors, CssBaseline } from "@mui/material";
 import ResponsiveAppBar from "./components/MenuBar";
 import Stopwatch from "./components/StopWatch";
-
+import DiffStat from "./components/DifficultyStatus";
+import Tools from "./components/ToolPad";
 const theme = createTheme({
   palette: {
     primary: {
@@ -20,10 +21,8 @@ const theme = createTheme({
 // Style object for grid items and paper
 const styles = {
   gridItem: { 
-    marginTop: "0px" 
-  },
-  paper: {
-    height: "550px"
+    marginTop: "0px",
+    border : "none",
   },
   clock:{
     height: "50px",
@@ -33,31 +32,33 @@ const styles = {
 };
 
 function App() {
+  
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <SudokuProvider>
         <ResponsiveAppBar />
         <main>
-          <Grid spacing={0}>
-            <Grid>
-              <Container maxWidth="sm" align="center">
-                <Stopwatch></Stopwatch>
-              </Container>
-            </Grid>
-            <Grid>
-              <Paper elevation={0} style={styles.paper}>
-                <Container maxWidth="sm" align="center">
-                  <DisplayGrid/>
-                </Container>
-              </Paper>
-            </Grid>
-            <Grid >
-              <Paper>
+          <Grid container spacing={1} direction="column" >
+            <Grid item >
               <Container maxWidth="sm" align="center">
                 <Form />
               </Container>
-              </Paper>
+            </Grid>
+            <Grid item >
+              <Container maxWidth="sm" align="center">
+                <Stopwatch/>
+              </Container>
+            </Grid>
+            <Grid item>
+              <Container maxWidth="sm" sx={{height: "600px"}} align="center">
+                <DisplayGrid/>
+              </Container>
+            </Grid>
+            <Grid item>
+              <Container maxWidth="sm" align="center">
+                <Tools/>
+              </Container>
             </Grid>
           </Grid>
         </main>

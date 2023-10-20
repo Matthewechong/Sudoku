@@ -1,7 +1,9 @@
 import { Button, Paper, Typography, Grid } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { styled } from '@mui/material/styles';
-
+import PauseCircleOutlineOutlinedIcon from '@mui/icons-material/PauseCircleOutlineOutlined';
+import PlayCircleFilledOutlinedIcon from '@mui/icons-material/PlayCircleFilledOutlined';
+import DiffStat from "./DifficultyStatus";
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -13,16 +15,16 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const styles = {
     paper: {
-      width: "100px",
       flexDirection: "row", 
-      justifyContent: "center"
+      justifyContent: "center",
+      
     },
 
     clock_block:{
-      padding: "20px",
-      width: "600px",
+      padding: "0px",
+      width: "550px",
       flexDirection: "row", 
-      justifyContent: "right"
+      justifyContent: "center"
     },
     clock:{
         width:"100px",
@@ -30,9 +32,13 @@ const styles = {
         display: "flex",
         justifyContent: "center",
         textAlign: "center",
-        // background-color: cyan;
-        // border-radius: 5px;
     },
+    diffStat:{
+      flexDirection: "row", 
+      justifyContent: "left",
+      display: "flex",
+    }
+    
   };
 
 function Stopwatch() {
@@ -67,21 +73,19 @@ function Stopwatch() {
   return (
     <>
         <Grid container style={styles.clock_block} >
-            <Grid item xs={2} >
-                <Typography style={styles.paper}>
+          
+            <Grid item xs={3} >
+                <DiffStat ></DiffStat>
+            </Grid>
+            <Grid item xs={9} container justifyContent="flex-end" alignItems="center">
+                <Typography >
                     {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
                 </Typography>
-            </Grid>
-
-            <Grid item xs={2}>
-                <Button sx={{ width: "75px" }} variant="contained" onClick={startStop}>
-                    {isRunning ? "Stop" : "Start"}
-                </Button>
-            </Grid>
-            <Grid item xs={2}>
-                <Button sx={{ width: "75px" }} variant="contained" onClick={reset}>
-                    Reset
-                </Button>
+                {isRunning ? (
+                  <PauseCircleOutlineOutlinedIcon sx={{ width: "50px" }} variant="contained" onClick={startStop} />
+                  ) : (
+                      <PlayCircleFilledOutlinedIcon sx={{ width: "50px" }} variant="contained" onClick={startStop} />
+                  )}
             </Grid>
         </Grid>
     </>

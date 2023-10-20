@@ -6,32 +6,28 @@ import { styled } from '@mui/material/styles';
 import {  useGridSolutionContext, useDifficultyContext, useGridContext } from '../contexts/CurrentGridContext'
 import { SaveGame, LoadGame } from '../services/SudokuService';
 import { SudokuStringToGrid, solveSudoku, printBoard } from '../utils/Util';
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-  width: "200px",
-  boxShadow: theme.shadows[0]
-}));
+import SaveIcon from '@mui/icons-material/Save';
+import CachedIcon from '@mui/icons-material/Cached';
+import SendIcon from '@mui/icons-material/Send';
 
 const styles = {
     toolbar_box: {
-        width: "500px", 
-        padding: "50px", 
-        display: "flex", 
-        flexDirection: "row", 
-        justifyContent: "center"
+        padding: "10px", 
+        height: "100px"
     },
     toolbar:{
         display: "flex", 
-        flexDirection: "row", 
-        justifyContent: "center"
     }
     
 }
+
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
 
 export default function BasicStack() {
     const {grid, setGrid, changeGrid} = useGridContext();
@@ -60,14 +56,28 @@ export default function BasicStack() {
         SaveGame(grid, difficulty, "Matthew", idValue);
     }
 
-    function solveBoard(){
-        setGrid(gridSol);
-    }
+    
 
     return (
-        <Box className="form" style={styles.toolbar_box}  >
-        <Stack spacing={0} style={styles.toolbar}>
-            <Item>
+        <Box style={styles.toolbar_box}  >
+        <Stack spacing={0} style={{...styles.toolbar, border: 'none'}}>
+            <TextField
+            required
+            id="outlined-required"
+            label="ID Required"
+            inputRef={idRef}
+            // sx={{ height: '10px'}}
+            />
+            <Item elevation={0}>
+                <Stack style={{flexDirection : "row"}}>
+                    <SaveIcon onClick={() => saveBoard()} variant="contained">Save</SaveIcon>
+                    <SendIcon onClick={() => loadBoard()} variant="contained">Load</SendIcon>
+                    <CachedIcon onClick={changeGrid} variant="contained">Generate Sudoku</CachedIcon>
+                </Stack>
+            </Item>
+            
+            
+            {/* <Item>
                 <TextField
             required
             id="outlined-required"
@@ -76,17 +86,17 @@ export default function BasicStack() {
             />
             </Item>
             <Item>
-                <Button onClick={() => saveBoard()} variant="contained">Save</Button>
+                <SaveIcon onClick={() => saveBoard()} variant="contained">Save</SaveIcon>
             </Item>
             <Item>
-                <Button onClick={() => loadBoard()} variant="contained">Load</Button>
+                <SendIcon onClick={() => loadBoard()} variant="contained">Load</SendIcon>
             </Item>
             <Item>
-                <Button onClick={changeGrid} variant="contained">Generate Sudoku</Button>
-            </Item>
-            <Item>
+                <CachedIcon onClick={changeGrid} variant="contained">Generate Sudoku</CachedIcon>
+            </Item> */}
+            {/* <Item>
                 <Button onClick={() => solveBoard()} variant="contained">Solve</Button>
-            </Item>
+            </Item> */}
         </Stack>
         </Box>
     );
