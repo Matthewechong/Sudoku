@@ -1,10 +1,8 @@
 import axios from 'axios';
 import {printGrid} from './SudokuGenerator';
-import { SudokuStringToGrid } from '../utils/Util';
-// let saveUrl = "http://localhost:8080/api/save";
-// let loadUrl = "http://localhost:8080/api/load";
-let saveUrl = "http://ec2-18-222-136-174.us-east-2.compute.amazonaws.com:8080/api/save";
-let loadUrl = "http://ec2-18-222-136-174.us-east-2.compute.amazonaws.com:8080/api/load";
+let baseUrl = import.meta.env.VITE_BASEURL
+let saveUrl = baseUrl + import.meta.env.VITE_SAVEURL
+let loadUrl = baseUrl + import.meta.env.VITE_LOADURL
 
 export function SaveGame(board,difficulty,username, id){
     const jsonTemplate =
@@ -16,7 +14,7 @@ export function SaveGame(board,difficulty,username, id){
     };
     console.log("Json Sent: ")
     console.log(jsonTemplate)
-    
+    console.log(saveUrl)
     axios.post(saveUrl,jsonTemplate)
         .then((response) =>{
             console.log(response);

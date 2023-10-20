@@ -80,8 +80,8 @@ function DisplayGrid(){
                   onClick={() => handleCellClick(rowIndex, colIndex)}
                 >
                   <input
-                  value={cell}
-                  className={`input-cell ${cell ? 'sudoku-cell-valid-num' : 'sudoku-cell-invalid-num'}`}
+                  value={cell === 0 ? "" : cell}
+                  className={`input-cell ${cell != 0 ? 'sudoku-cell-valid-num' : ""}`}
                   onChange={(e) => handleInputChange( e, rowIndex, colIndex)}
                    />
                   

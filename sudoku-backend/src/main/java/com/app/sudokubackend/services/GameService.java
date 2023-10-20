@@ -26,7 +26,6 @@ public class GameService {
     }
 
     public void saveGame(Map<String, Object> gameMap) {
-        System.out.println("Hello World");
         long id = Integer.valueOf((String) gameMap.get("id"));
         String gamestate = (String) gameMap.get("gamestate");
         String difficulty = (String) gameMap.get("difficulty");

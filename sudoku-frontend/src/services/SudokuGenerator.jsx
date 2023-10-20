@@ -1,5 +1,5 @@
 import axios from 'axios';
-const url = "https://sudoku-api.vercel.app/api/dosuku"
+const url = import.meta.env.VITE_GENERATE_SUDOKU_URL
 let grid = [[]];
 let solution = [[]];
 let rowString = '';
