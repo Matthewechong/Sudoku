@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { useBoardContext, useButtonContext, useDifficultyContext, useGridContext, useGridSolutionContext } from '../contexts/CurrentGridContext'
+import { useBoardContext, useButtonContext, useDifficultyContext, useGridContext, useGridSolutionContext, useMistakesCountContext } from '../contexts/CurrentGridContext'
 import { Grid, Paper, Button, TextField, Container } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -13,6 +13,7 @@ function DisplayGrid(){
     const [selectedCell, setSelectedCell] = useState({ row: null, col: null });
     const {gridSol, setGridSol} = useGridSolutionContext();
     const [open, setOpen] = React.useState(false);
+    const { mistakes, setMistakes} = useMistakesCountContext();
 
     const handleCellClick = (row, col) => {
         setSelectedCell({ row, col });
@@ -53,8 +54,8 @@ function DisplayGrid(){
         console.log("Correct")
       }
       else{
-        
         console.log("Incorrect")
+        setMistakes(mistakes + 1);
         return
       }
       return isValid

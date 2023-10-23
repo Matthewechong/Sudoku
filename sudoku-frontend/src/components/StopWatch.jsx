@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 import PauseCircleOutlineOutlinedIcon from '@mui/icons-material/PauseCircleOutlineOutlined';
 import PlayCircleFilledOutlinedIcon from '@mui/icons-material/PlayCircleFilledOutlined';
 import DiffStat from "./DifficultyStatus";
+import MistakesCount from "./MistakesCount";
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -74,10 +75,13 @@ function Stopwatch() {
     <>
         <Grid container style={styles.clock_block} >
           
-            <Grid item xs={3} >
+            <Grid item xs={4} >
                 <DiffStat ></DiffStat>
             </Grid>
-            <Grid item xs={9} container justifyContent="flex-end" alignItems="center">
+            <Grid item xs={4} >
+                <MistakesCount></MistakesCount>
+            </Grid>
+            <Grid item xs={4} container justifyContent="flex-end" alignItems="center">
                 <Typography >
                     {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
                 </Typography>

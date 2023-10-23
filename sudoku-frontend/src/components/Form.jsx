@@ -69,34 +69,20 @@ export default function BasicStack() {
             // sx={{ height: '10px'}}
             />
             <Item elevation={0}>
-                <Stack style={{flexDirection : "row"}}>
-                    <SaveIcon onClick={() => saveBoard()} variant="contained">Save</SaveIcon>
-                    <SendIcon onClick={() => loadBoard()} variant="contained">Load</SendIcon>
-                    <CachedIcon onClick={changeGrid} variant="contained">Generate Sudoku</CachedIcon>
+                <Stack spacing={0} style={{flexDirection : "row"}}>
+                    <Item elevation={0}>
+                        <SaveIcon onClick={() => saveBoard()} variant="contained">Save</SaveIcon>
+                    </Item>
+                    <Item elevation={0}>
+                        <SendIcon onClick={() => loadBoard()} variant="contained">Load</SendIcon>
+                    </Item>
+                    <Item elevation={0}>
+                        <CachedIcon onClick={changeGrid} variant="contained">Generate Sudoku</CachedIcon>
+                    </Item>
+                    
                 </Stack>
             </Item>
-            
-            
-            {/* <Item>
-                <TextField
-            required
-            id="outlined-required"
-            label="ID Required"
-            inputRef={idRef}
-            />
-            </Item>
-            <Item>
-                <SaveIcon onClick={() => saveBoard()} variant="contained">Save</SaveIcon>
-            </Item>
-            <Item>
-                <SendIcon onClick={() => loadBoard()} variant="contained">Load</SendIcon>
-            </Item>
-            <Item>
-                <CachedIcon onClick={changeGrid} variant="contained">Generate Sudoku</CachedIcon>
-            </Item> */}
-            {/* <Item>
-                <Button onClick={() => solveBoard()} variant="contained">Solve</Button>
-            </Item> */}
+
         </Stack>
         </Box>
     );

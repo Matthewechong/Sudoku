@@ -7,10 +7,11 @@ import ResponsiveAppBar from "./components/MenuBar";
 import Stopwatch from "./components/StopWatch";
 import DiffStat from "./components/DifficultyStatus";
 import Tools from "./components/ToolPad";
+import NumberBar from "./components/NumberBar";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#47CBD4",
+      main: "#9CD1FA",
     },
     secondary: {
       main: "#d45047",
@@ -51,13 +52,18 @@ function App() {
               </Container>
             </Grid>
             <Grid item>
-              <Container maxWidth="sm" sx={{height: "600px"}} align="center">
+              <Container maxWidth="sm" sx={{height: "575px"}} align="center">
                 <DisplayGrid/>
               </Container>
             </Grid>
             <Grid item>
               <Container maxWidth="sm" align="center">
                 <Tools/>
+              </Container>
+            </Grid>
+            <Grid item>
+              <Container maxWidth="sm" align="center">
+                <NumberBar/>
               </Container>
             </Grid>
           </Grid>

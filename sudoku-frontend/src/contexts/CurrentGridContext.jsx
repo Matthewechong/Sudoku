@@ -1,12 +1,14 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { GenerateSudoku } from '../services/SudokuGenerator';
 import { solveSudoku, printBoard } from '../utils/Util';
+
 const ButtonContext = React.createContext();
 const DifficultyContext = React.createContext();
 const BoardContext = React.createContext();
 const GridContext = React.createContext();
 const GridSolutionContext = React.createContext();
-
+const GridNumberContext = React.createContext();
+const MistakesCountContext = React.createContext();
 // Call these hooks to access information from other components
 export function useButtonContext(){
     return useContext(ButtonContext);
@@ -28,6 +30,14 @@ export function useGridSolutionContext(){
     return useContext(GridSolutionContext)
 }
 
+export function useGridNumberContext(){
+    return useContext(GridNumberContext)
+}
+
+export function useMistakesCountContext(){
+    return useContext(MistakesCountContext)
+}
+
 export default function SudokuProvider({children}){
 
     const [buttonName, setbuttonName] = useState("Generate Sudoku");
@@ -36,6 +46,18 @@ export default function SudokuProvider({children}){
     const initialGrid = Array.from({length : 9}, () => Array(9).fill(0));
     const [grid, setGrid] = useState(initialGrid);
     const [gridSol, setGridSol] = useState('');
+    const [numUsage, setNumUsage] = useState({
+        '1': 9,
+        '2': 9,
+        '3': 9,
+        '4': 9,
+        '5': 9,
+        '6': 9,
+        '7': 9,
+        '8': 9,
+        '9': 9,
+    });
+    const [mistakes, setMistakes] = useState(0);
 
     useEffect(() => {
         console.log("Grid Solution has changed: ", gridSol);
@@ -55,6 +77,8 @@ export default function SudokuProvider({children}){
         });
       }
     return(
+        <MistakesCountContext.Provider value={{ mistakes, setMistakes }}>
+        <GridNumberContext.Provider value={{numUsage, setNumUsage}}>
         <GridSolutionContext.Provider value={{ gridSol, setGridSol }}>
         <GridContext.Provider value={{ grid, setGrid, changeGrid }} >
         <BoardContext.Provider value={{ board, setBoard }}>
@@ -66,5 +90,7 @@ export default function SudokuProvider({children}){
         </BoardContext.Provider>
         </GridContext.Provider>
         </GridSolutionContext.Provider>
+        </GridNumberContext.Provider>
+        </MistakesCountContext.Provider>
     )
 }

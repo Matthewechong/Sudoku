@@ -22,6 +22,14 @@ const Item = styled(Paper)(({ theme }) => ({
     margin: 5, // Add some margin to separate the items
   }));
 
+const styles = {
+    toolIcon:{
+        display: 'flex',
+        flexDirection: 'column', 
+        alignItems: 'center'
+    }
+}
+
   function Tools() {
     const {grid, setGrid, changeGrid} = useGridContext();
     const { gridSol } = useGridSolutionContext();
@@ -32,25 +40,29 @@ const Item = styled(Paper)(({ theme }) => ({
 
     return (
         <Grid container style={{ flexDirection: "row" }}>
-            <Grid item xs={3} style={{ display: 'flex', justifyContent: 'center' }}>
+            <Grid item xs={3}  style={styles.toolIcon}>
                 <Item>
                     <ReplayIcon style={{ fontSize: 40 }} />
                 </Item>
+                <Typography>Undo</Typography>
             </Grid>
-            <Grid item xs={3} style={{ display: 'flex', justifyContent: 'center' }}>
+            <Grid item xs={3} style={styles.toolIcon}>
                 <Item>
                     <ModeEditIcon style={{ fontSize: 40 }} />
                 </Item>
+                <Typography>Notes</Typography>
             </Grid>
-            <Grid item xs={3} style={{ display: 'flex', justifyContent: 'center' }}>
+            <Grid item xs={3} style={styles.toolIcon}>
                 <Item>
                     <AutoFixNormalIcon style={{ fontSize: 40 }} />
                 </Item>
+                <Typography>Erase</Typography>
             </Grid>
-            <Grid item xs={3} style={{ display: 'flex', justifyContent: 'center' }}>
+            <Grid item xs={3} style={styles.toolIcon}>
                 <Item>
                     <LightbulbOutlinedIcon  onClick={() => solveBoard()} style={{ fontSize: 40 }} />
                 </Item>
+                <Typography>Solution</Typography>
             </Grid>
         </Grid>
     )
