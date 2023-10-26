@@ -1,11 +1,19 @@
 package com.app.sudokubackend.controller;
 
+import java.security.Principal;
 import java.util.Map;
+
+import javax.swing.RepaintManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +53,29 @@ public class SudokuController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred.");
         }
+    }
+
+    @CrossOrigin(origins = "${allowed.origins}")
+    @GetMapping("/api/user")
+    ResponseEntity<Object> currentUser(Authentication auth) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+        String givenName;
+
+        // Github Username
+        givenName = oAuth2User.getAttribute("login");
+        System.out.println(oAuth2User.getAttributes());
+
+        // Google's Name
+        if (givenName == null) {
+            givenName = (String) oAuth2User.getAttributes().get("given_name");
+        }
+
+        if (givenName == null) {
+            givenName = "Unknown";
+        }
+
+        return ResponseEntity.ok(givenName);
     }
 
 }
