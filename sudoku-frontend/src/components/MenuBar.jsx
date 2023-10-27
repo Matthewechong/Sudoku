@@ -67,7 +67,8 @@ function ResponsiveAppBar() {
   }, []);
 
   useEffect(() => {
-    console.log(profile)
+    console.log(profile);
+    console.log(profile === " ");
     if(profile === " "){
       setOpen(true);
     }
@@ -98,7 +99,15 @@ function ResponsiveAppBar() {
   };
 
   const handleLogout = () => {
-    window.location.href = LOGOUT;
+    axios.post(LOGOUT)
+	  .then((response) => {
+		  window.location.href = BASE;
+		 })
+	  .catch((error) => {
+    // Handle any errors
+    console.error(error);
+  });
+
   }
 
   return (

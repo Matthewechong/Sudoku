@@ -59,7 +59,7 @@ public class SudokuController {
     @CrossOrigin("${allowed.origins}")
     @GetMapping("/api/user")
     ResponseEntity<Object> currentUser(Authentication authentication) {
-        String givenName = "Unknown";
+        String givenName = " ";
 
         if (authentication != null) {
             if (authentication.getPrincipal() instanceof OAuth2User) {
