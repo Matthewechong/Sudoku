@@ -55,8 +55,9 @@ function ResponsiveAppBar() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8443/api/user'); // Replace with your actual endpoint
-        setData(response.data);
+        const response = await axios.get(BASE + '/api/user'); // Replace with your actual endpoint
+        setProfile(response.data['name'])
+	console.log(response.data['name'])
       } catch (error) {
         console.log(error)
       }
@@ -65,6 +66,11 @@ function ResponsiveAppBar() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if(profile === "None" || profile === "Unknown"){
+      setOpen(true);
+    }
+  }, [profile]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

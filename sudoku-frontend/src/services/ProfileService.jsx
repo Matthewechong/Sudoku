@@ -5,7 +5,7 @@ let userUrl = baseUrl + import.meta.env.VITE_USERURL
 
 export async function GetUser() {
     try {
-      const response = await axios.get("https://localhost:8443/api/user");
+      const response = await axios.get(userUrl);
       console.log(response.data);
       return response;
   
