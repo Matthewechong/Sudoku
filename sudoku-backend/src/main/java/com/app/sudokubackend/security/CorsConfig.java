@@ -2,11 +2,15 @@ package com.app.sudokubackend.security;
 
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -15,17 +19,26 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class CorsConfig {
 
+    @Autowired
+    private ClientRegistrationRepository clientRegistrationRepository;
+
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .requestMatchers("/home", "/login**", "/callback/", "/webjars/**", "/error**", "/api/**",
                         "/oauth2/authorization/**")
                 .permitAll()
-                .anyRequest().authenticated()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .oauth2Login()
                 .and()
-                .cors().configurationSource(corsConfigurationSource());
+                .logout()
+                .logoutSuccessUrl("/logout").permitAll()
+                .logoutSuccessHandler(oidcLogoutSuccessHandler())
+                .and()
+                .cors()
+                .configurationSource(corsConfigurationSource());
         return http.build();
     }
 
@@ -38,5 +51,13 @@ public class CorsConfig {
         source.registerCorsConfiguration("/**", configuration);
         source.registerCorsConfiguration("/api/**", configuration);
         return source;
+    }
+
+    private LogoutSuccessHandler oidcLogoutSuccessHandler() {
+        OidcClientInitiatedLogoutSuccessHandler oidcLogoutSuccessHandler = new OidcClientInitiatedLogoutSuccessHandler(
+                this.clientRegistrationRepository);
+        oidcLogoutSuccessHandler.setPostLogoutRedirectUri("{baseUrl}");
+
+        return oidcLogoutSuccessHandler;
     }
 }
