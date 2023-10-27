@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.sudokubackend.models.SudokuEntity;
 import com.app.sudokubackend.models.User;
 import com.app.sudokubackend.services.GameService;
-
+import org.springframework.web.servlet.view.RedirectView;
 @RestController
 public class SudokuController {
 
@@ -79,6 +79,11 @@ public class SudokuController {
         }
 
         return ResponseEntity.ok(new User(givenName));
+    }
+    @GetMapping("/")
+    public RedirectView redirectToNewURL() {
+        String newURL = "https://ec2-18-216-231-150.us-east-2.compute.amazonaws.com/"; // Replace with your desired URL
+        return new RedirectView(newURL);
     }
 
 }
