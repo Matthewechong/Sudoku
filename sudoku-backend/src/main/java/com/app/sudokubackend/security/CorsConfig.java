@@ -26,7 +26,7 @@ public class CorsConfig {
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .requestMatchers("/home", "/login**", "/callback/", "/webjars/**", "/error**", "/api/**",
-                        "/oauth2/authorization/**")
+                        "/oauth2/authorization/**","/logout/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -45,11 +45,12 @@ public class CorsConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+        configuration.setAllowedOrigins(Arrays.asList("https://ec2-18-216-231-150.us-east-2.compute.amazonaws.com/","http://localhost:5173"));
         configuration.setAllowedMethods(Arrays.asList("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         source.registerCorsConfiguration("/api/**", configuration);
+	source.registerCorsConfiguration("/logout/**", configuration);
         return source;
     }
 

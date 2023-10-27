@@ -99,16 +99,10 @@ function ResponsiveAppBar() {
   };
 
   const handleLogout = () => {
-    axios.post(LOGOUT)
-	  .then((response) => {
-		  window.location.href = BASE;
-		 })
-	  .catch((error) => {
-    // Handle any errors
-    console.error(error);
-  });
+    window.location.href = LOGOUT;
+  };
 
-  }
+  
 
   return (
     <>
