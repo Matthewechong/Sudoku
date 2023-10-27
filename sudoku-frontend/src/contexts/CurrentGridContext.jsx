@@ -64,7 +64,7 @@ export default function SudokuProvider({children}){
         '9': 9,
     });
     const [mistakes, setMistakes] = useState(0);
-    const [profile, setProfile] = useState("None");
+    const [profile, setProfile] = useState(" ");
 
     useEffect(() => {
         console.log("Grid Solution has changed: ", gridSol);

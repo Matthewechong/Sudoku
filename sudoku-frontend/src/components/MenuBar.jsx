@@ -43,6 +43,7 @@ function ResponsiveAppBar() {
   const BASE = import.meta.env.VITE_BASEURL
   const GOOGLE_LOGIN = BASE + import.meta.env.VITE_GOOGLE_LOGIN_URL
   const GITHUB_LOGIN = BASE + import.meta.env.VITE_GITHUB_LOGIN_URL
+  let LOGOUT = BASE + import.meta.env.VITE_LOGOUT
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -55,9 +56,8 @@ function ResponsiveAppBar() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(BASE + '/api/user'); // Replace with your actual endpoint
+        const response = await axios.get(BASE + '/api/user'); 
         setProfile(response.data['name'])
-	console.log(response.data['name'])
       } catch (error) {
         console.log(error)
       }
@@ -67,9 +67,14 @@ function ResponsiveAppBar() {
   }, []);
 
   useEffect(() => {
-    if(profile === "None" || profile === "Unknown"){
+    console.log(profile)
+    if(profile === " "){
       setOpen(true);
     }
+    else{
+      setOpen(false);
+    }
+    console.log(profile)
   }, [profile]);
 
   const handleOpenNavMenu = (event) => {
@@ -88,6 +93,14 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+  const handleOptionSelect = (option) => {
+    setSelectedOption(option);
+  };
+
+  const handleLogout = () => {
+    window.location.href = LOGOUT;
+  }
+
   return (
     <>
     <div>
@@ -102,9 +115,21 @@ function ResponsiveAppBar() {
         </DialogTitle>
         <DialogContent>
           <Stack>
-          <Button sx={styles.google} variant='contained' href={GOOGLE_LOGIN}>Continue with Google</Button>
+          <Button 
+            sx={styles.google} 
+            variant='contained' 
+            href={GOOGLE_LOGIN}
+            onClick={() => handleOptionSelect('Google')}>
+              Continue with Google
+              </Button>
 
-          <Button sx={styles.github} variant='contained' href={GITHUB_LOGIN}>Continue with Git Hub</Button>
+          <Button 
+            sx={styles.github} 
+            variant='contained' 
+            href={GITHUB_LOGIN}
+            onClick={() => handleOptionSelect('GitHub')}>
+              Continue with Git Hub
+              </Button>
           </Stack>
           
         </DialogContent>
@@ -157,11 +182,14 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">Profile</Typography>
+              </MenuItem>
+
+              <MenuItem onClick={handleLogout}>
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
+
             </Menu>
           </Box>
         </Toolbar>
