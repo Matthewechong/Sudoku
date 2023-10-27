@@ -5,7 +5,7 @@ import { useGridNumberContext } from "../contexts/CurrentGridContext";
 
 
 const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    backgroundColor: theme.palette.mode === 'dark' ? 'rgba(26, 32, 39, 0)' : 'rgba(255, 255, 255, 0)',
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: 'center',

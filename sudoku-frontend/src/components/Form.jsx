@@ -22,7 +22,7 @@ const styles = {
 }
 
 const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    backgroundColor: theme.palette.mode === 'dark' ? 'rgba(26, 32, 39, 0)' : 'rgba(255, 255, 255, 0)',
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: 'center',
@@ -71,13 +71,13 @@ export default function BasicStack() {
             <Item elevation={0}>
                 <Stack spacing={0} style={{flexDirection : "row"}}>
                     <Item elevation={0}>
-                        <SaveIcon onClick={() => saveBoard()} variant="contained">Save</SaveIcon>
+                        <SaveIcon sx={{color : "#06f1e6"}} onClick={() => saveBoard()} variant="contained">Save</SaveIcon>
                     </Item>
                     <Item elevation={0}>
-                        <SendIcon onClick={() => loadBoard()} variant="contained">Load</SendIcon>
+                        <SendIcon sx={{color : "#06f1e6"}} onClick={() => loadBoard()} variant="contained">Load</SendIcon>
                     </Item>
                     <Item elevation={0}>
-                        <CachedIcon onClick={changeGrid} variant="contained">Generate Sudoku</CachedIcon>
+                        <CachedIcon sx={{color : "#06f1e6"}} onClick={changeGrid} variant="contained">Generate Sudoku</CachedIcon>
                     </Item>
                     
                 </Stack>

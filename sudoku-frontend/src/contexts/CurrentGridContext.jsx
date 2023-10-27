@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { GenerateSudoku } from '../services/SudokuGenerator';
 import { solveSudoku, printBoard } from '../utils/Util';
+import { GetUser } from '../services/ProfileService';
 
 const ButtonContext = React.createContext();
 const DifficultyContext = React.createContext();
@@ -9,7 +10,12 @@ const GridContext = React.createContext();
 const GridSolutionContext = React.createContext();
 const GridNumberContext = React.createContext();
 const MistakesCountContext = React.createContext();
+const ProfileContext = React.createContext();
 // Call these hooks to access information from other components
+export function useProfileContext(){
+    return useContext(ProfileContext);
+}
+
 export function useButtonContext(){
     return useContext(ButtonContext);
 }
@@ -58,10 +64,12 @@ export default function SudokuProvider({children}){
         '9': 9,
     });
     const [mistakes, setMistakes] = useState(0);
+    const [profile, setProfile] = useState("None");
 
     useEffect(() => {
         console.log("Grid Solution has changed: ", gridSol);
     }, [gridSol]);
+
 
     function changeGrid(){
         GenerateSudoku()
@@ -77,6 +85,7 @@ export default function SudokuProvider({children}){
         });
       }
     return(
+        <ProfileContext.Provider value={{ profile, setProfile}}>
         <MistakesCountContext.Provider value={{ mistakes, setMistakes }}>
         <GridNumberContext.Provider value={{numUsage, setNumUsage}}>
         <GridSolutionContext.Provider value={{ gridSol, setGridSol }}>
@@ -92,5 +101,6 @@ export default function SudokuProvider({children}){
         </GridSolutionContext.Provider>
         </GridNumberContext.Provider>
         </MistakesCountContext.Provider>
+        </ProfileContext.Provider>
     )
 }

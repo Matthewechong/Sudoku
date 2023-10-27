@@ -8,7 +8,7 @@ function DiffStat() {
     const {difficulty, setDifficulty} = useDifficultyContext();
     return (
         <>
-            <Typography>
+            <Typography sx={{color : "#06f1e6"}}>
                 Difficulty: {difficulty}
             </Typography>
         </>

@@ -6,7 +6,7 @@ function MistakesCount(){
     const {mistakes, setMistakes} = useMistakesCountContext();
     return(
         <>
-            <Typography>Mistakes {mistakes}/3 </Typography>
+            <Typography sx={{color : "#06f1e6"}}>Mistakes {mistakes}/3 </Typography>
         </>
     )
 }

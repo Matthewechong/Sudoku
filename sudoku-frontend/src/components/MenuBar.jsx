@@ -5,24 +5,71 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import { useProfileContext } from "../contexts/CurrentGridContext";
+import { useEffect } from 'react';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import { Stack } from '@mui/material';
+import { GetUser } from '../services/ProfileService';
+import axios from 'axios';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
+const styles = {
+    github: {
+      color : 'white',
+      backgroundColor: 'black',
+      marginBottom: '10px'
+    },
+    google: {
+      color : 'white',
+      backgroundColor: 'blue',
+      marginBottom: '10px'
+    }
+}
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const {profile, setProfile} = useProfileContext();
+  const [open, setOpen] = React.useState(false);
+
+  const BASE = import.meta.env.VITE_BASEURL
+  const GOOGLE_LOGIN = BASE + import.meta.env.VITE_GOOGLE_LOGIN_URL
+  const GITHUB_LOGIN = BASE + import.meta.env.VITE_GITHUB_LOGIN_URL
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8443/api/user'); // Replace with your actual endpoint
+        setData(response.data);
+      } catch (error) {
+        console.log(error)
+      }
+    };
+
+    fetchData();
+  }, []);
+
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+  
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -36,64 +83,56 @@ function ResponsiveAppBar() {
   };
 
   return (
+    <>
+    <div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Log in to Your Account"}
+        </DialogTitle>
+        <DialogContent>
+          <Stack>
+          <Button sx={styles.google} variant='contained' href={GOOGLE_LOGIN}>Continue with Google</Button>
+
+          <Button sx={styles.github} variant='contained' href={GITHUB_LOGIN}>Continue with Git Hub</Button>
+          </Stack>
+          
+        </DialogContent>
+      
+      </Dialog>
+    </div>
+    
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth="false">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
+          <Typography 
+            variant="h3"
             noWrap
             component="a"
             href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
-              display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'inherit',
+              color : "#06f1e6",
               textDecoration: 'none',
+              flexGrow: 1,
+              display: { xs: 'none', md: 'flex' },
             }}
           >
             Sudoku
           </Typography>
-
-        
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-              
-              </Button>
-            ))}
-          </Box>
-
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar sx={{ bgcolor: "#06f1e6" }}>{ 
+                profile[0]}
+                </Avatar>
               </IconButton>
             </Tooltip>
             <Menu
@@ -122,6 +161,7 @@ function ResponsiveAppBar() {
         </Toolbar>
       </Container>
     </AppBar>
+    </>
   );
 }
 export default ResponsiveAppBar;

@@ -82,7 +82,7 @@ function Stopwatch() {
                 <MistakesCount></MistakesCount>
             </Grid>
             <Grid item xs={4} container justifyContent="flex-end" alignItems="center">
-                <Typography >
+                <Typography sx={{color : "#06f1e6"}} >
                     {String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}
                 </Typography>
                 {isRunning ? (

@@ -8,10 +8,13 @@ import Stopwatch from "./components/StopWatch";
 import DiffStat from "./components/DifficultyStatus";
 import Tools from "./components/ToolPad";
 import NumberBar from "./components/NumberBar";
+import videoBg from './assets/ConstBg.mp4'
+import LoginPage from "./components/LoginPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#9CD1FA",
+      main: "#06f1e6",
     },
     secondary: {
       main: "#d45047",
@@ -35,10 +38,24 @@ const styles = {
 function App() {
   
   return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<LoginPage />}/>
+        <Route path="/" element={<SudokuGame />}/>
+        
+      </Routes>
+    </BrowserRouter>
+    
+  );
+}
+
+function SudokuGame(){
+  return(
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <SudokuProvider>
-        <ResponsiveAppBar />
+        <video className="video-background" src={videoBg} autoPlay loop muted> </video>
+        <ResponsiveAppBar/>
         <main>
           <Grid container spacing={1} direction="column" >
             <Grid item >
@@ -69,8 +86,7 @@ function App() {
           </Grid>
         </main>
       </SudokuProvider>
-    </ThemeProvider>
-  );
+    </ThemeProvider>)
 }
 
 export default App;

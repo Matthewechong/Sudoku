@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.app.sudokubackend.models.SudokuEntity;
+import com.app.sudokubackend.models.User;
 import com.app.sudokubackend.services.GameService;
 
 @RestController
@@ -32,7 +33,7 @@ public class SudokuController {
     @Autowired
     GameService gameService;
 
-    @CrossOrigin(origins = "${allowed.origins}")
+    @CrossOrigin("${allowed.origins}")
     @PostMapping("/api/save")
     ResponseEntity<String> saveGame(@RequestBody Map<String, Object> gameState) {
         try {
@@ -44,7 +45,7 @@ public class SudokuController {
         }
     }
 
-    @CrossOrigin(origins = "${allowed.origins}")
+    @CrossOrigin("${allowed.origins}")
     @GetMapping("/api/load/{id}")
     ResponseEntity<Object> loadGame(@PathVariable Long id) {
         try {
@@ -55,27 +56,29 @@ public class SudokuController {
         }
     }
 
-    @CrossOrigin(origins = "${allowed.origins}")
+    @CrossOrigin("${allowed.origins}")
     @GetMapping("/api/user")
-    ResponseEntity<Object> currentUser(Authentication auth) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        String givenName;
+    ResponseEntity<Object> currentUser(Authentication authentication) {
+        String givenName = "Unknown";
 
-        // Github Username
-        givenName = oAuth2User.getAttribute("login");
-        System.out.println(oAuth2User.getAttributes());
+        if (authentication != null) {
+            if (authentication.getPrincipal() instanceof OAuth2User) {
+                OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
 
-        // Google's Name
-        if (givenName == null) {
-            givenName = (String) oAuth2User.getAttributes().get("given_name");
+                // Github Username
+                givenName = oAuth2User.getAttribute("login");
+                System.out.println(oAuth2User.getAttributes());
+
+                // Google's Name
+                if (givenName == null) {
+                    givenName = (String) oAuth2User.getAttributes().get("given_name");
+                }
+            } else if (authentication.getPrincipal() instanceof String) {
+                givenName = (String) authentication.getPrincipal();
+            }
         }
 
-        if (givenName == null) {
-            givenName = "Unknown";
-        }
-
-        return ResponseEntity.ok(givenName);
+        return ResponseEntity.ok(new User(givenName));
     }
 
 }
