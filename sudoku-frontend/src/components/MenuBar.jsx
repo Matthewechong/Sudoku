@@ -91,7 +91,6 @@ function ResponsiveAppBar() {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
           backdrop="static"
-
         >
           <DialogTitle id="alert-dialog-title">
             {"Log in to Your Account"}
