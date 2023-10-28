@@ -46,11 +46,17 @@ http {
         }
 
         location /api {
-            proxy_pass https://localhost:8443;
+            proxy_pass https://DOMAIN:8443;
         }
 
-        location /oauth2 {
-            proxy_pass https://localhost:8443;
+	location /oauth2 {
+            proxy_pass https://DOMAIN:8443;
+        }
+	location /login {
+            proxy_pass https://DOMAIN:8443;
+        }
+	 location /logout {
+            proxy_pass https://DOMAIN:8443;
         }
     }
 

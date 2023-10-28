@@ -30,6 +30,9 @@ public class SudokuController {
     @Value("${allowed.origins}")
     private String allowedOrigins;
 
+    @Value("${base.url}")
+    private String baseurl;
+
     @Autowired
     GameService gameService;
 
@@ -82,7 +85,7 @@ public class SudokuController {
     }
     @GetMapping("/")
     public RedirectView redirectToNewURL() {
-        String newURL = "https://ec2-18-216-231-150.us-east-2.compute.amazonaws.com/"; // Replace with your desired URL
+        String newURL = baseurl;
         return new RedirectView(newURL);
     }
 
