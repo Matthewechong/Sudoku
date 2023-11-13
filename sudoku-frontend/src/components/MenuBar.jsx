@@ -20,6 +20,8 @@ import { Stack } from '@mui/material';
 import { GetUser } from '../services/ProfileService';
 import axios from 'axios';
 
+const baseurl = import.meta.env.VITE_BASEURL
+const logoutUrl = baseurl + VITE_LOGOUT
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const styles = {
