@@ -20,8 +20,6 @@ import { Stack } from '@mui/material';
 import { GetUser } from '../services/ProfileService';
 import axios from 'axios';
 
-const baseurl = import.meta.env.VITE_BASEURL
-const logoutUrl = baseurl + VITE_LOGOUT
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const styles = {
@@ -45,7 +43,7 @@ function ResponsiveAppBar() {
   const BASE = import.meta.env.VITE_BASEURL
   const GOOGLE_LOGIN = BASE + import.meta.env.VITE_GOOGLE_LOGIN_URL
   const GITHUB_LOGIN = BASE + import.meta.env.VITE_GITHUB_LOGIN_URL
-
+  const logoutUrl = BASE + import.meta.env.VITE_LOGOUT
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -172,11 +170,11 @@ function ResponsiveAppBar() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+              
+                  <MenuItem href="{logoutUrl}"onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{Logout}</Typography>
                   </MenuItem>
-                ))}
+            
               </Menu>
             </Box>
           </Toolbar>
