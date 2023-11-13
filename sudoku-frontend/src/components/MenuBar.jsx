@@ -48,7 +48,11 @@ function ResponsiveAppBar() {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = (event, reason) => {
+    if (reason === 'backdropClick') {
+      // If the reason is backdropClick, do not close the dialog
+      return;
+    }
     setOpen(false);
   };
 
@@ -64,6 +68,19 @@ function ResponsiveAppBar() {
 
     fetchData();
   }, []);
+
+
+  useEffect(() => {
+    console.log(profile);
+    console.log(profile === " ");
+    if (profile === " ") {
+      setOpen(true);
+    }
+    else {
+      setOpen(false);
+    }
+    console.log(profile)
+  }, [profile])
 
 
   const handleOpenNavMenu = (event) => {
@@ -91,6 +108,7 @@ function ResponsiveAppBar() {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
           backdrop="static"
+          disableBackdropClick
         >
           <DialogTitle id="alert-dialog-title">
             {"Log in to Your Account"}
