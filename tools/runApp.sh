@@ -45,9 +45,9 @@ sed -i "s/DOMAIN/${domain}/g" "$environment_path_dest"
 sed -i "s/DOMAIN/${domain}/g" "$properties_path_dest"
 sudo sed -i "s/DOMAIN/${domain}/g" "$nginx_path_dest"
 
-echo "Build and deploy api"
-cd ../sudoku-backend/
-./deployService.sh
+#echo "Build and deploy api"
+#cd ../sudoku-backend/
+#./deployService.sh
 
 # Restart Server
-sudo systemctl restart nginx
+#sudo systemctl restart nginx
