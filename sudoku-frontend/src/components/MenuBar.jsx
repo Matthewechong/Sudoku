@@ -171,9 +171,9 @@ function ResponsiveAppBar() {
                 onClose={handleCloseUserMenu}
               >
               
-                  <MenuItem href="{logoutUrl}"onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{Logout}</Typography>
-                  </MenuItem>
+              <MenuItem href={logoutUrl} onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
             
               </Menu>
             </Box>
